@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrape Data</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="mt-5 mb-4">Scrape Data from IIT Bombay</h2>
+        <form method="post" action="{% url 'scrap' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="phoneNumber">Enter 5-digit Phone Number:</label>
+                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" pattern="\d{5}" title="Please enter a 5-digit number" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Scrape Data</button>
+        </form>
+
+        {% if person_details %}
+            <div class="mt-5">
+                <h2>Person Details</h2>
+                <p>Name/Profession: {{ person_details.name_profession }}</p>
+                <p>Address: {{ person_details.address }}</p>
+                <p>Phone: {{ person_details.phone }}</p>
+                <p>Fax: {{ person_details.fax }}</p>
+                <p>Email: {{ person_details.email }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
